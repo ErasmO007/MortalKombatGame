@@ -165,3 +165,48 @@ def select_character_type():
             return sonya_type
         else:
             print("Invalid choice. Please enter a number between 1 and 4.")
+
+            def battle(character1, character2):
+               """
+               Simulates a battle between two Mortal Kombat characters.
+
+                 Parameters:
+    - character1 (MKCharacter): The first character.
+    - character2 (MKCharacter): The second character.
+    """
+    print(f"{character1} vs. {character2}! Let the battle begin!")
+    current_turn = 1
+    while not character1.is_fainted and not character2.is_fainted:
+        print(f"Round {current_turn}!")
+        attacker = character1 if current_turn % 2 == 1 else character2
+        defender = character2 if current_turn % 2 == 1 else character1
+        attacker.attack(defender)
+        print("Player 1      Player 2\n", character1.current_health, "HP          ",  character2.current_health, "HP")
+        current_turn += 1
+        if character1.is_fainted:
+            winner = character2
+        elif character2.is_fainted:
+            winner = character1
+    # winner = character1 if not character2.is_fainted else character2
+    print(f"{winner} wins!")
+
+
+# Define the Mortal Kombat character types
+scorpion_type = MKCharacterType("Scorpion", strengths=["Sub-Zero"],
+                               weaknesses=["Raiden", "Sonya"])
+sub_zero_type = MKCharacterType("Sub-Zero", strengths=["Raiden"],
+                               weaknesses=["Scorpion", "Sonya"])
+raiden_type = MKCharacterType("Raiden", strengths=["Sonya"],
+                             weaknesses=["Sub-Zero", "Scorpion"])
+sonya_type = MKCharacterType("Sonya", strengths=["Scorpion"],
+                            weaknesses=["Sub-Zero", "Raiden"])
+
+# Create two Mortal Kombat characters with multiple types
+print("Select characters for the battle:")
+character1_type = select_character_type()
+character2_type = select_character_type()
+character1 = MKCharacter("Character 1", [character1_type])
+character2 = MKCharacter("Character 2", [character2_type])
+
+# Simulate the battle between the Mortal Kombat characters
+battle(character1, character2)
