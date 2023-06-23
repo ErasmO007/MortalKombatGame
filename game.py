@@ -71,3 +71,30 @@ class MKCharacterType:
             self.current_health = max(0, self.current_health - damage)
             if self.current_health == 0:
                 self.faint()
+            
+        def faint(self):
+         """
+            Sets the character's is_fainted attribute to True, indicating it has fainted.
+         """
+         self.is_fainted = True
+
+
+        def get_effectiveness(self, other_type):
+          """
+          Calculates the effectiveness of this character's types against another type.
+
+           Parameters:
+            - other_type (MKCharacterType): The other character type to check effectiveness against.
+
+           Returns:
+            - float: The effectiveness value as a floating-point number.
+        """
+          effectiveness = 1.0
+          for character_type in self.types:
+              for strength in character_type.strengths:
+                if strength == other_type.name:
+                    effectiveness *= 2.0
+              for weakness in character_type.weaknesses:
+                if weakness == other_type.name:
+                    effectiveness *= 0.5
+          return effectiveness
