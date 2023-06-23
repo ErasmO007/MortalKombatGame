@@ -35,7 +35,7 @@ class MKCharacterType:
         - bool: True if this type is weak against the other type, False otherwise.
         """
         return other.name in self.strengths
-    
+
     class MKCharacter:
         def __init__(self, name, types):
             """
@@ -71,7 +71,7 @@ class MKCharacterType:
             self.current_health = max(0, self.current_health - damage)
             if self.current_health == 0:
                 self.faint()
-            
+
         def faint(self):
          """
             Sets the character's is_fainted attribute to True, indicating it has fainted.
@@ -88,7 +88,7 @@ class MKCharacterType:
 
            Returns:
             - float: The effectiveness value as a floating-point number.
-        """
+         """
           effectiveness = 1.0
           for character_type in self.types:
               for strength in character_type.strengths:
@@ -98,3 +98,43 @@ class MKCharacterType:
                 if weakness == other_type.name:
                     effectiveness *= 0.5
           return effectiveness
+
+        def attack(self, other):
+          """
+          Attacks another character and reduces its health based on the attack's effectiveness.
+
+          Parameters:
+          - other (MKCharacter): The character to be attacked.
+          """
+          print(f"{self} is attacking {other}!")
+          print("Select an attack:")
+          print("1. front")
+          print("2. back punch")
+          print("3. back kick")
+          print("4. Uppercut")
+
+          while True:
+            choice = input("Enter the number corresponding to the attack: ")
+            if choice == "1":
+                attack_name = "Attack 1"
+                break
+            elif choice == "2":
+                attack_name = "Attack 2"
+                break
+            elif choice == "3":
+                attack_name = "Attack 3"
+                break
+            elif choice == "4":
+                attack_name = "Attack 4"
+                break
+            else:
+                print("Invalid choice. Please enter a number between 1 and 4.")
+
+
+          effectiveness = 1.0
+          for character_type in other.types:
+            effectiveness *= self.get_effectiveness(character_type)
+
+          damage = int(((2 * len(self.types) / 5 + 2) * 40) / (len(other.types) + 1) * effectiveness)
+          print(f"{self} uses {attack_name} and deals {damage} damage!")
+          other.lose_health(damage)
