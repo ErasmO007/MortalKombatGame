@@ -138,3 +138,30 @@ class MKCharacterType:
           damage = int(((2 * len(self.types) / 5 + 2) * 40) / (len(other.types) + 1) * effectiveness)
           print(f"{self} uses {attack_name} and deals {damage} damage!")
           other.lose_health(damage)
+
+
+def select_character_type():
+    """
+    Allows the user to select a Mortal Kombat character type.
+
+    Returns:
+    - MKCharacterType: The selected character type.
+    """
+    print("Select a character type:")
+    print("1. Scorpion")
+    print("2. Sub-Zero")
+    print("3. Raiden")
+    print("4. Sonya")
+
+    while True:
+        choice = input("Enter the number corresponding to the character type: ")
+        if choice == "1":
+            return scorpion_type
+        elif choice == "2":
+            return sub_zero_type
+        elif choice == "3":
+            return raiden_type
+        elif choice == "4":
+            return sonya_type
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
